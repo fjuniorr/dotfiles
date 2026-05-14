@@ -1,0 +1,67 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Francisco Júnior
+	email = fjunior.alves.oliveira@gmail.com
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s%Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit
+
+  news = "!git fetch; git branch -v -v"
+
+  ahead = "!f() { git log --color --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s%Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit origin/$1..$1 --; }; f"
+
+  behind = "!f() { git log --color --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s%Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit $1..origin/$1 --; }; f"
+
+  alias = config --get-regexp '^alias\\.'
+
+  unstage = reset HEAD --
+
+  last = log -1 HEAD
+
+  brdiff = "!f() { git lg --left-right $1...HEAD; }; f"
+
+  cp = lg --left-right
+
+[push]
+	default = simple
+[diff "csv"]
+  wordRegex = [^,\n]+[,\n]|[,]
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFXS --pattern '^(Date|added|deleted|modified): '
+[diff "daff-csv"]
+	command = daff diff --git
+[merge "daff-csv"]
+	name = daff tabular csv merge
+	driver = daff merge --output %A %O %A %B

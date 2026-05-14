@@ -1,0 +1,30 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Emacs files
+
+*~
+
+# Vscode
+
+.vscode/
+
+# Python https://github.com/github/gitignore/blob/master/Python.gitignore
+
+__pycache__/
+
+## [[20210912T093334]] - python - naming virtual enviroments
+
+.venv/
+
+.ai/
+\!ai/
+
+notes.ipynb
