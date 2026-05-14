@@ -18,8 +18,26 @@ link() {
   echo "link  $dest -> $src"
 }
 
+source_into() {
+  local rc="$1"
+  local marker="# >>> dotfiles aliases >>>"
+  if [ -f "$rc" ] && grep -qF "$marker" "$rc"; then
+    echo "ok    aliases already sourced in $rc"
+    return
+  fi
+  {
+    echo ""
+    echo "$marker"
+    echo "[ -f \"$DOTFILES_DIR/shell/aliases.sh\" ] && . \"$DOTFILES_DIR/shell/aliases.sh\""
+    echo "# <<< dotfiles aliases <<<"
+  } >> "$rc"
+  echo "edit  added aliases source to $rc"
+}
+
 link "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 link "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
+
+source_into "$HOME/.bashrc"
 
 if command -v diff-so-fancy >/dev/null 2>&1; then
   echo "ok    diff-so-fancy already installed"

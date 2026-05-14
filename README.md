@@ -17,6 +17,8 @@ cd ~/.dotfiles && ./install.sh
 - installs `diff-so-fancy` (clones to `~/.local/share/diff-so-fancy`, symlinks
   into `~/.local/bin`) if it isn't already on `PATH` — used by the Git pager
   and diff highlighting
+- sources `shell/aliases.sh` from `~/.bashrc` (guarded, so re-runs don't
+  duplicate) — adds `claude` / `codex` aliases
 
 Any pre-existing `~/.gitconfig` / `~/.gitignore_global` is backed up with a
 timestamp suffix before linking.
