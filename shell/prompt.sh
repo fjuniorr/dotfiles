@@ -13,4 +13,5 @@ for _f in \
 done
 unset _f
 
-export PS1="\[$(tput bold)\]\[\033[38;5;3m\]\W\[$(tput sgr0)\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+# exe.dev / Ubuntu default (user@host:cwd) plus the git-aware segment
+export PS1="\[\033[1;32m\]\u@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
