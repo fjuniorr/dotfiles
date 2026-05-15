@@ -1,4 +1,4 @@
-# Entry point sourced from ~/.bashrc by dotfiles install.sh
+# Entry point sourced from ~/.bashrc by the chezmoi-managed block
 DOTFILES_SHELL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 . "$DOTFILES_SHELL_DIR/aliases.sh"

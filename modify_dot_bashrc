@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Strip any previously managed dotfiles block from the existing ~/.bashrc,
+# then append a fresh one. chezmoi pipes the current target on stdin and
+# uses our stdout as the new target.
+awk '
+  /^# >>> dotfiles.*>>>$/ {skip=1}
+  !skip {print}
+  /^# <<< dotfiles.*<<<$/ {skip=0; next}
+'
+cat <<'EOF'
+# >>> dotfiles >>>
+[ -f "$HOME/.local/share/dotfiles/init.sh" ] && . "$HOME/.local/share/dotfiles/init.sh"
+# <<< dotfiles <<<
+EOF

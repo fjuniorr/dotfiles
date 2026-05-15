@@ -1,41 +1,48 @@
 # dotfiles
 
-Personal dotfiles for bootstrapping a fresh machine (e.g. an exe.dev VM) with the
-same global Git setup as my main machine.
+Minimal dotfiles for bootstrapping fresh exe.dev VMs via
+[chezmoi](https://chezmoi.io). Not intended for use on my main machine —
+it's just a reference there.
 
-## Install
+## Install (on a fresh VM)
 
 ```sh
-git clone git@github.com:fjuniorr/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles && ./install.sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply fjuniorr
 ```
 
-`install.sh` is idempotent and:
+This installs chezmoi if missing, clones this repo, applies the dotfiles,
+and runs the install scripts.
 
-- symlinks `git/.gitconfig` -> `~/.gitconfig`
-- symlinks `git/.gitignore_global` -> `~/.gitignore_global`
-- symlinks `claude/settings.json` -> `~/.claude/settings.json` (Claude Code
-  user settings — denies `AskUserQuestion`). Skipped if a real
-  `~/.claude/settings.json` already exists, so the main machine's full
-  personal config is preserved.
-- wires `shell/init.sh` into `~/.bashrc` via a managed block (re-runs replace
-  the block, never duplicate it) — this loads:
-  - `shell/aliases.sh` — `claude` / `codex` aliases
-  - `shell/prompt.sh` — git-aware prompt, git completion, and `PS1`
-- installs `diff-so-fancy` (clones to `~/.local/share/diff-so-fancy`, symlinks
-  into `~/.local/bin`) if it isn't already on `PATH` — used by the Git pager
-  and diff highlighting
-- clones `git-aware-prompt` to `~/.local/share/git-aware-prompt` and downloads
-  `git-completion.bash` to `~/.local/share/`
-- installs `atuin` (ctrl+r shell history) via its official installer, which
-  also downloads `bash-preexec` and wires `~/.bashrc` itself
+What it does:
 
-Any pre-existing `~/.gitconfig` / `~/.gitignore_global` is backed up with a
-timestamp suffix before linking.
+- writes `~/.gitconfig` and `~/.gitignore_global`
+- writes `~/.claude/settings.json` (Claude Code user settings — denies
+  `AskUserQuestion`)
+- writes `~/.local/share/dotfiles/{init,aliases,prompt}.sh`
+- runs `modify_dot_bashrc` to inject a managed source block into
+  `~/.bashrc` that loads `~/.local/share/dotfiles/init.sh`, which sources
+  `aliases.sh` (`claude` / `codex` aliases) and `prompt.sh` (git-aware
+  prompt + git completion + `PS1`)
+- runs install scripts after applying files (alphabetical order):
+  - `run_onchange_install-atuin.sh` — atuin (ctrl+r shell history) via its
+    official installer; wires `~/.bashrc` and writes hooks into the
+    deployed `~/.claude/settings.json` (the source repo stays minimal)
+  - `run_onchange_install-diff-so-fancy.sh` — clones to
+    `~/.local/share/diff-so-fancy`, symlinks into `~/.local/bin`
+  - `run_onchange_install-git-aware-prompt.sh` — clones to
+    `~/.local/share/git-aware-prompt`
+  - `run_onchange_install-git-completion.sh` — downloads
+    `git-completion.bash` to `~/.local/share/`
+
+## Updating a VM
+
+```sh
+chezmoi update
+```
 
 ## Notes
 
 - Editor is set to `vim` (the main machine uses `subl -w`, which isn't on a VM).
-- If `~/.local/bin` isn't on your `PATH`, add it so `diff-so-fancy` is found.
+- If `~/.local/bin` isn't on `PATH`, add it so `diff-so-fancy` is found.
 - The prompt expects `bash`. After install, open a new shell or
   `source ~/.bashrc`.
