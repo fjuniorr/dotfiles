@@ -50,6 +50,10 @@ wire_bashrc() {
 link "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 link "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
 
+# --- claude code settings ---
+mkdir -p "$HOME/.claude"
+link "$DOTFILES_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+
 # --- shell config (aliases + prompt) ---
 wire_bashrc
 
