@@ -1,5 +1,8 @@
 {
   "permissions": {
-    "deny": ["AskUserQuestion"]
-  }
+    "deny": [
+      "AskUserQuestion"
+    ]
+  },
+  "skipDangerousModePermissionPrompt": true
 }

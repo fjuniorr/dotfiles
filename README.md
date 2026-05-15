@@ -15,7 +15,9 @@ cd ~/.dotfiles && ./install.sh
 - symlinks `git/.gitconfig` -> `~/.gitconfig`
 - symlinks `git/.gitignore_global` -> `~/.gitignore_global`
 - symlinks `claude/settings.json` -> `~/.claude/settings.json` (Claude Code
-  user settings — denies `AskUserQuestion`)
+  user settings — denies `AskUserQuestion`). Skipped if a real
+  `~/.claude/settings.json` already exists, so the main machine's full
+  personal config is preserved.
 - wires `shell/init.sh` into `~/.bashrc` via a managed block (re-runs replace
   the block, never duplicate it) — this loads:
   - `shell/aliases.sh` — `claude` / `codex` aliases

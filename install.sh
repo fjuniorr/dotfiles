@@ -51,8 +51,16 @@ link "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 link "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
 
 # --- claude code settings ---
+# Only link on fresh machines (e.g. exe.dev VMs). If a real settings.json
+# already exists, leave it alone so the full personal config isn't
+# replaced by the minimal repo version.
 mkdir -p "$HOME/.claude"
-link "$DOTFILES_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+claude_settings="$HOME/.claude/settings.json"
+if [ -e "$claude_settings" ] && [ ! -L "$claude_settings" ]; then
+  echo "skip  $claude_settings exists — leaving personal config alone"
+else
+  link "$DOTFILES_DIR/claude/settings.json" "$claude_settings"
+fi
 
 # --- shell config (aliases + prompt) ---
 wire_bashrc
