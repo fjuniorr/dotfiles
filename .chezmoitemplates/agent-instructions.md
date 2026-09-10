@@ -1,27 +1,25 @@
-## Writing
+# Writing
 
-- Use google developer documentation style guide (https://developers.google.com/style) when writing.
+- Write in direct, natural prose for a teammate who wasn’t part of the conversation. Describe the problem itself rather than narrating “the user reported” or “the agent verified.” Present the settled proposal without replaying debates or justifying rejected alternatives. Use simple headings and include enough detail to make the reasoning clear; concision should remove repetition and unnecessary implementation detail, not essential context.
 
-## Engineering plans
+- Mannered prose substitutes metaphor and flourish for direct statement. Instead of "a parameter worth varying," the mannered writer produces "a dial worth turning." Instead of "this point still matters," they write "this point earns its keep." The phrases exist to display the writer, not to convey the idea, and readers can tell. That is why mannered prose irritates: it makes the reader work harder so the writer can perform. It is also imprecise. Metaphors drag in connotations the writer did not choose and cannot control. The fix is to say what you mean. When a literal phrase is available, use it.
 
-When working on the context of an engineering plans (`/home/exedev/plans`) follow this structure:
+- Use google developer documentation style guide (https://developers.google.com/style).
 
-- `README.md`: Captures the background context for the project, including problem and objectives
-- `DECISIONS.md`: Records decisions whose rationale should be preserved, especially alternatives that were considered but rejected (append-only)
-- `TODO.md`: Tracks remaining work
+# Engineering plans
 
-Code is the source of truth for design and implementation. Commits explain individual changes. Pull requests synthesize work for review.
+When working on the context of an engineering plans (`/home/exedev/plans`) use two sections: **Problem** and **Solution** for the main `README.md` :
 
-`DECISIONS.md` is a Markdown list. Each top-level item is one decision, with optional indented Markdown for supporting context.
-
-`TODO.md` is a Markdown checklist. Each top-level item is one remaining task, with optional indented Markdown for supporting context.
+- The Problem should identify who is affected, the context, and why the current situation matters, supported by concrete examples and evidence. 
+- The Solution should state the proposed direction, the value it should provide to those affected, expected outcomes, and important constraints. 
+- Make both sections understandable without reconstructing the original discussion, and distinguish observed facts from assumptions or stakeholder judgments. 
+- Leave out implementation steps, exhaustive technical details, and the history of how decisions were reached.
+- Code is the source of truth for design and implementation. Commits explain individual changes. Pull requests synthesize work for review.
 
 ```text
 plans/
 └── YYYY-MM-DD-<slug>/
-    ├── README.md            # project context
-    ├── DECISIONS.md         # durable reasoning
-    ├── TODO.md              # remaining work
+    ├── README.md            # problem and solution
     ├── .gitignore           # ignore large files and PII
     ├── prototypes/          # UI and UX prototypes
     ├── transcripts/         # meetings, interviews, conversations
