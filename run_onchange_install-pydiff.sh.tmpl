@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# pydiff (fjuniorr/pydiff) lists the symbols a git range touches — functions,
+# methods, classes, module constants — each marked added, deleted, or modified.
+# It is the run before writing a commit message or a PR description, where
+# `git diff --stat` only says which files moved. `pydiff --interactive` browses
+# the listing in fzf, installed by its own script above.
+#
+# Like zettel below, the repo publishes no releases and the version in
+# pyproject.toml does not move, so there is nothing to compare an installed copy
+# against. chezmoi resolves upstream HEAD at apply time and pins it in the
+# comment below: when a new commit lands, this file's content changes and
+# run_onchange re-runs. uv keys a git install by commit rather than by the
+# declared version, so --force is what actually refreshes it.
+#
+# pydiff@{{ output "git" "ls-remote" "https://github.com/fjuniorr/pydiff.git" "HEAD" | trunc 40 }}
+
+if ! command -v uv >/dev/null 2>&1; then
+  # linuxbrew isn't always on PATH in chezmoi's non-interactive run env
+  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
+
+uv tool install --force git+https://github.com/fjuniorr/pydiff.git
