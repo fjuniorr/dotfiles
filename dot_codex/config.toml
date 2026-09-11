@@ -1,5 +1,8 @@
 model_provider = "exe-codex"
 
+[tools.experimental_request_user_input]
+enabled = false
+
 [model_providers.exe-codex]
 name = "exe-codex"
 base_url = "https://codex.int.exe.xyz/v1"
